@@ -1,6 +1,7 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 
 	"gorm.io/driver/mysql"
@@ -15,7 +16,7 @@ func main() {
 	}
 
 	var users []User
-	db.Raw("select * from tb_user").Scan(&users)
+	db.Raw("select * from tb_user where id = @Id", sql.Named("Id", 1)).Scan(&users)
 
 	fmt.Println(users)
 }
